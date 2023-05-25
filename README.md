@@ -1,6 +1,6 @@
-Project: 0x16. C - Simple Shell
+**Project**: **0x16. C - Simple Shell**
 
-*List of allowed functions and system calls*
+**List of allowed functions and system calls**
 * access (man 2 access)
 * chdir (man 2 chdir)
 * close (man 2 close)
@@ -34,13 +34,13 @@ Project: 0x16. C - Simple Shell
 * write (man 2 write)
 
 
-*Tasks*
+**Tasks**
 
-0. *Betty would be proud*
+0. **Betty would be proud**
 Write a beautiful code that passes the Betty checks
 
 
-1. *Simple shell 0.1*
+1. **Simple shell 0.1**
 Write a UNIX command line interpreter.
 
 * Usage: simple_shell
@@ -62,25 +62,25 @@ You don’t have to:
 * be able to move the cursor
 * handle commands with arguments
 
-execve will be the core part of your Shell, don’t forget to pass the environ to it…
+*execve* will be the core part of your Shell, don’t forget to pass the environ to it…
 
 
-2. *Simple shell 0.2*
+2. **Simple shell 0.2**
 
-Simple shell 0.1 +
+*Simple shell 0.1 +*
 
 * Handle command lines with arguments
 
 
-3. *Simple shell 0.3*
+3. **Simple shell 0.3**
 
-Simple shell 0.2 +
+*Simple shell 0.2 +*
 
 * Handle the PATH
 * fork must not be called if the command doesn’t exist
 
 
-4. *Simple shell 0.4*
+4. **Simple shell 0.4**
 
 Simple shell 0.3 +
 
@@ -89,9 +89,9 @@ Simple shell 0.3 +
 * You don’t have to handle any argument to the built-in exit
 
 
-5. *Simple shell 1.0*
+5. **Simple shell 1.0**
 
-Simple shell 0.4 +
+*Simple shell 0.4 +*
 
 * Implement the env built-in, that prints the current environment
 
