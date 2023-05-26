@@ -15,7 +15,7 @@ int builtin_ret = 0;
 
 while (r != -1 && builtin_ret != -2)
 {
-clear_info(info);
+clearenv(info);
 if (interactive(info))
 _puts("$ ");
 eput_char(BUFF_FLUSH);
@@ -59,11 +59,11 @@ int search_builtin(info_t *info)
 int i, built_in_ret = -1;
 builtin_table builtintbl[] = {
 {"exit", my_exit},
-{"env", my_env},
+{"env", my_envir},
 {"help", my_help},
 {"history", my_history},
-{"setenv", my_setenv},
-{"unsetenv", my_unsetenv},
+{"setenv", my_setenvir},
+{"unsetenv", my_unsetenvir},
 {"cd", my_cd},
 {"alias", my_alias},
 {NULL, NULL}
@@ -103,7 +103,7 @@ k++;
 if (!k)
 return;
 
-path = search_path(info, get_env(info, "PATH="), info->argv[0]);
+path = search_path(info, set_env(info, "PATH="), info->argv[0]);
 if (path)
 {
 info->path = path;
@@ -111,7 +111,7 @@ fork_cmd(info);
 }
 else
 {
-if ((interactive(info) || get_env(info, "PATH=")
+if ((interactive(info) || set_env(info, "PATH=")
 || info->argv[0][0] == '/') && if_cmd(info, info->argv[0]))
 fork_cmd(info);
 else if (*(info->arg) != '\n')
