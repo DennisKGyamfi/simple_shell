@@ -119,24 +119,24 @@ continue;
 
 if (!str_cmp(info->argv[i], "$?"))
 {
-replace_string(&(info->argv[i]),
+change_string(&(info->argv[i]),
 str_dup(convert_numb(info->status, 10, 0)));
 continue;
 }
 if (!str_cmp(info->argv[i], "$$"))
 {
-replace_string(&(info->argv[i]),
+change_string(&(info->argv[i]),
 str_dup(convert_numb(getpid(), 10, 0)));
 continue;
 }
-node = node_starts_with(info->env, &info->argv[i][1], '=');
+node = node_begins_with(info->env, &info->argv[i][1], '=');
 if (node)
 {
-replace_string(&(info->argv[i]),
+change_string(&(info->argv[i]),
 str_dup(str_chr(node->str, '=') + 1));
 continue;
 }
-replace_string(&info->argv[i], str_dup(""));
+change_string(&info->argv[i], str_dup(""));
 
 }
 return (0);

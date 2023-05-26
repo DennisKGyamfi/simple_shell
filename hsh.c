@@ -15,7 +15,7 @@ int builtin_ret = 0;
 
 while (r != -1 && builtin_ret != -2)
 {
-clearenv(info);
+clear_information(info);
 if (interactive(info))
 _puts("$ ");
 eput_char(BUFF_FLUSH);
@@ -103,7 +103,7 @@ k++;
 if (!k)
 return;
 
-path = search_path(info, set_env(info, "PATH="), info->argv[0]);
+path = search_path(info, get_envir(info, "PATH="), info->argv[0]);
 if (path)
 {
 info->path = path;
@@ -111,7 +111,7 @@ fork_cmd(info);
 }
 else
 {
-if ((interactive(info) || set_env(info, "PATH=")
+if ((interactive(info) || get_envir(info, "PATH=")
 || info->argv[0][0] == '/') && if_cmd(info, info->argv[0]))
 fork_cmd(info);
 else if (*(info->arg) != '\n')
