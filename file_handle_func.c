@@ -47,10 +47,10 @@ if (fd == -1)
 return (-1);
 for (node = info->history; node; node = node->next)
 {
-_putsfd(node->str, fd);
-_putfd('\n', fd);
+puts_fd(node->str, fd);
+put_fd('\n', fd);
 }
-_putfd(BUFF_FLUSH, fd);
+put_fd(BUFF_FLUSH, fd);
 close(fd);
 return (1);
 }
@@ -110,7 +110,15 @@ re_number_history(info);
 return (info->histcount);
 }
 
-nfo_t *info, char *buf, int linecount)
+/**
+ * construct_history_list - adds entry to a history linked list
+ * @info: Structure containing potential arguments. Used to maintain
+ * @buf: buffer
+ * @linecount: the history linecount, histcount
+ *
+ * Return: Always 0
+ */
+int construct_history_list(info_t *info, char *buf, int linecount)
 {
 list_t *node = NULL;
 
@@ -124,20 +132,11 @@ return (0);
 }
 
 /**
- * re_number_history - renumbers the history linked li/**
-* construct_history_list - adds entry to a history linked list
-* @info: Structure containing potential arguments. Used to maintain
-* @buf: buffer
-* @linecount: the history linecount, histcount
-*
-* Return: Always 0
-*/
-
-int construct_history_list(ist after changes
-* @info: Structure containing potential arguments. Used to maintain
-*
-* Return: the new histcount
-*/
+ * re_number_history - renumbers the history linked list after changes
+ * @info: Structure containing potential arguments. Used to maintain
+ *
+ * Return: the new histcount
+ */
 
 int re_number_history(info_t *info)
 {
