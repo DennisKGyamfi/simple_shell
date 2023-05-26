@@ -135,16 +135,16 @@ i = len = 0;
 
 r = read_buf(info, buf, &len);
 if (r == -1 || (r == 0 && len == 0))
-		return (-1);
+return (-1);
 c = str_chr(buf + i, '\n');
 k = c ? 1 + (unsigned int)(c - buf) : len;
 new_p = re_alloc(p, s, s ? s + k : k + 1);
 if (!new_p) /* MALLOC FAILURE! */
-		return (p ? free(p), -1 : -1);
+return (p ? free(p), -1 : -1);
 if (s)
-		strn_cat(new_p, buf + i, k - i);
+strn_cat(new_p, buf + i, k - i);
 else
-		strn_cpy(new_p, buf + i, k - i + 1);
+strn_cpy(new_p, buf + i, k - i + 1);
 
 s += k - i;
 i = k;

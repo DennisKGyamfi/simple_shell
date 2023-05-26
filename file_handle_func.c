@@ -71,7 +71,6 @@ char *buf = NULL, *filename = get_historyfile(info);
 
 if (!filename)
 return (0);
-
 fd = open(filename, O_RDONLY);
 free(filename);
 
@@ -83,7 +82,6 @@ fsize = st.st_size;
 if (fsize < 2)
 return (0);
 buf = malloc(sizeof(char) * (fsize + 1));
-
 if (!buf)
 return (0);
 rdlen = read(fd, buf, fsize);
@@ -98,12 +96,10 @@ buf[i] = 0;
 construct_history_list(info, buf + last, linecount++);
 last = i + 1;
 }
-
 if (last != i)
 construct_history_list(info, buf + last, linecount++);
 free(buf);
 info->histcount = linecount;
-
 while (info->histcount-- >= HIST_MAX)
 del_node_at_index(&(info->history), 0);
 re_number_history(info);
