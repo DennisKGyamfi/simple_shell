@@ -39,7 +39,7 @@ void print_err(info_t *info, char *estr)
 {
 	e_puts(info->fname);
 	e_puts(": ");
-	print_d(info->line_count, STDERR_FILENO);
+	prints_d(info->line_count, STDERR_FILENO);
 	e_puts(": ");
 	e_puts(info->argv[0]);
 	e_puts(": ");
