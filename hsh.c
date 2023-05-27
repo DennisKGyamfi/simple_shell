@@ -1,12 +1,11 @@
 #include "shell.h"
-
 /**
-* hsh - main shell loop
-* @info: the parameter & return info struct
-* @av: the argument vector from main()
-*
-* Return: 0 on success, 1 on error, or error code
-*/
+ * hsh - main shell loop
+ * @info: the parameter & return info struct
+ * @av: the argument vector from main()
+ *
+ * Return: 0 on success, 1 on error, or error code
+ */
 
 int hsh(info_t *info, char **av)
 {
@@ -15,24 +14,24 @@ int builtin_ret = 0;
 
 while (r != -1 && builtin_ret != -2)
 {
-clear_information(info);
+clear_info(info);
 if (interactive(info))
 _puts("$ ");
-eput_char(BUFF_FLUSH);
-r = gets_input(info);
+_eputchar(BUF_FLUSH);
+r = get_input(info);
 if (r != -1)
 {
-set_information(info, av);
-builtin_ret = search_builtin(info);
+set_info(info, av);
+builtin_ret = find_builtin(info);
 if (builtin_ret == -1)
-search_cmd(info);
+find_cmd(info);
 }
 else if (interactive(info))
 _putchar('\n');
-free_information(info, 0);
+free_info(info, 0);
 }
-writes_history(info);
-free_information(info, 1);
+write_history(info);
+free_info(info, 1);
 if (!interactive(info) && info->status)
 exit(info->status);
 if (builtin_ret == -2)
@@ -45,7 +44,7 @@ return (builtin_ret);
 }
 
 /**
-* search_builtin - finds a builtin command
+* find_builtin - finds a builtin command
 * @info: the parameter & return info struct
 *
 * Return: -1 if builtin not found,
@@ -54,23 +53,23 @@ return (builtin_ret);
 *			-2 if builtin signals exit()
 */
 
-int search_builtin(info_t *info)
+int find_builtin(info_t *info)
 {
 int i, built_in_ret = -1;
 builtin_table builtintbl[] = {
-{"exit", my_exit},
-{"env", my_envir},
-{"help", my_help},
-{"history", my_history},
-{"setenv", my_setenvir},
-{"unsetenv", my_unsetenvir},
-{"cd", my_cd},
-{"alias", my_alias},
+{"exit", _myexit},
+{"env", _myenv},
+{"help", _myhelp},
+{"history", _myhistory},
+{"setenv", _mysetenv},
+{"unsetenv", _myunsetenv},
+{"cd", _mycd},
+{"alias", _myalias},
 {NULL, NULL}
 };
 
 for (i = 0; builtintbl[i].type; i++)
-if (str_cmp(info->argv[0], builtintbl[i].type) == 0)
+if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
 {
 info->line_count++;
 built_in_ret = builtintbl[i].func(info);
@@ -80,13 +79,13 @@ return (built_in_ret);
 }
 
 /**
-* search_cmd - finds a command in PATH
+* find_cmd - finds a command in PATH
 * @info: the parameter & return info struct
 *
 * Return: void
 */
 
-void search_cmd(info_t *info)
+void find_cmd(info_t *info)
 {
 char *path = NULL;
 int i, k;
@@ -98,12 +97,12 @@ info->line_count++;
 info->linecount_flag = 0;
 }
 for (i = 0, k = 0; info->arg[i]; i++)
-if (!if_delim(info->arg[i], " \t\n"))
+if (!is_delim(info->arg[i], " \t\n"))
 k++;
 if (!k)
 return;
 
-path = search_path(info, get_envir(info, "PATH="), info->argv[0]);
+path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
 if (path)
 {
 info->path = path;
@@ -111,13 +110,13 @@ fork_cmd(info);
 }
 else
 {
-if ((interactive(info) || get_envir(info, "PATH=")
-|| info->argv[0][0] == '/') && if_cmd(info, info->argv[0]))
+if ((interactive(info) || _getenv(info, "PATH=")
+|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
 fork_cmd(info);
 else if (*(info->arg) != '\n')
 {
 info->status = 127;
-print_err(info, "not found\n");
+print_error(info, "not found\n");
 }
 }
 }
@@ -142,14 +141,13 @@ return;
 }
 if (child_pid == 0)
 {
-if (execve(info->path, info->argv, get_environment(info)) == -1)
+if (execve(info->path, info->argv, get_environ(info)) == -1)
 {
-free_information(info, 1);
+free_info(info, 1);
 if (errno == EACCES)
 exit(126);
 exit(1);
 }
-
 /* TODO: PUT ERROR FUNCTION */
 }
 else
@@ -159,7 +157,7 @@ if (WIFEXITED(info->status))
 {
 info->status = WEXITSTATUS(info->status);
 if (info->status == 126)
-print_err(info, "Permission denied\n");
+print_error(info, "Permission denied\n");
 }
 }
 }
