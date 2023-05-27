@@ -47,7 +47,7 @@ return (r);
 
 /**
 * get_input - gets a line minus the newline
- * @info: parameter struct
+* @info: parameter struct
 *
 * Return: bytes read
 */
@@ -113,13 +113,13 @@ return (r);
 }
 
 /**
- * _getline - gets the next line of input from STDIN
- * @info: parameter struct
- * @ptr: address of pointer to buffer, preallocated or NULL
- * @length: size of preallocated ptr buffer if not NULL
- *
- * Return: s
- */
+* _getline - gets the next line of input from STDIN
+* @info: parameter struct
+* @ptr: address of pointer to buffer, preallocated or NULL
+* @length: size of preallocated ptr buffer if not NULL
+*
+* Return: s
+*/
 
 int _getline(info_t *info, char **ptr, size_t *length)
 {
@@ -138,29 +138,17 @@ i = len = 0;
 r = read_buf(info, buf, &len);
 if (r == -1 || (r == 0 && len == 0))
 return (-1);
-<<<<<<< HEAD
 
 c = _strchr(buf + i, '\n');
-=======
-c = str_chr(buf + i, '\n');
->>>>>>> 1b505abe58a748711b8db19f3cb54391bb1209de
 k = c ? 1 + (unsigned int)(c - buf) : len;
 new_p = _realloc(p, s, s ? s + k : k + 1);
 if (!new_p) /* MALLOC FAILURE! */
-<<<<<<< HEAD
-
 return (p ? free(p), -1 : -1);
+
 if (s)
 _strncat(new_p, buf + i, k - i);
 else
 _strncpy(new_p, buf + i, k - i + 1);
-=======
-return (p ? free(p), -1 : -1);
-if (s)
-strn_cat(new_p, buf + i, k - i);
-else
-strn_cpy(new_p, buf + i, k - i + 1);
->>>>>>> 1b505abe58a748711b8db19f3cb54391bb1209de
 
 s += k - i;
 i = k;
