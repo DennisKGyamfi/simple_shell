@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * str_cpy - copies a string
+ * _strcpy - copies a string
  * @dest: the destination
  * @src: the source
  *
  * Return: pointer to destination
  */
-char *str_cpy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
@@ -23,12 +23,12 @@ char *str_cpy(char *dest, char *src)
 }
 
 /**
- * str_dup - duplicates a string
+ * _strdup - duplicates a string
  * @str: the string to duplicate
  *
  * Return: pointer to the duplicated string
  */
-char *str_dup(const char *str)
+char *_strdup(const char *str)
 {
 	int length = 0;
 	char *ret;
@@ -74,14 +74,14 @@ void _puts(char *str)
 int _putchar(char c)
 {
 	static int i;
-	static char buf[WRITE_BUFF_SIZE];
+	static char buf[WRITE_BUF_SIZE];
 
-	if (c == BUFF_FLUSH || i >= WRITE_BUFF_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
 		write(1, buf, i);
 		i = 0;
 	}
-	if (c != BUFF_FLUSH)
+	if (c != BUF_FLUSH)
 		buf[i++] = c;
 	return (1);
 }
